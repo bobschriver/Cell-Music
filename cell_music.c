@@ -39,18 +39,20 @@ uint8_t perform_evolution(uint8_t curr_state , int radius , int (**functions)(in
 
 			int power = j + radius;
 
-			bits = ((curr_state >> curr_index) & 1) << power;
+			bits |= ((curr_state >> curr_index) & 1) << power;
 		
 		}
 
-		printf("%d" , bits);
+		//printf("%d" , bits);
 
 		int new_bit = functions[bits](bits , radius);
 		
+		//printf(" -> %d\n" , new_bit);
 		new_state |= new_bit << i;
 	}
 
-	printf("\n");
+	return new_state;
+
 }
 
 int rule_150(int state_bits , int bits_size)
@@ -81,13 +83,14 @@ int main(int argc , char * argv[])
 
 	fill_functions(default_function , num_states , functions);
 
-	uint8_t initial_state = 0x01;
+	uint8_t initial_state = 0xF0;
 	uint8_t curr_state = initial_state;
 
 	int i;
 	for(i = 0; i < generations; i++)
 	{
 		curr_state = perform_evolution(curr_state , radius , functions);
-		printf("\n%d\n" , curr_state);
+		//printf("\n%d\n" , curr_state);
+		putchar(curr_state);
 	}
 }
