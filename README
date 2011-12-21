@@ -1,0 +1,1 @@
+A generic framework for generating cellular automata with an application for music generation. Only allows for 1D 2-state cellular automata with maximum length of 64.
